@@ -16,33 +16,23 @@ filename = './Data/Raw/Sara.txt'
 file_object = open(filename,'r')
 
 #Read contents of file into a list
-lineString = file_object.readline()
-
-#Iterate through lines
-while lineString:
-    #Pretend we read all lines of data from the file using a for loop
-        if lineString[0]=='#':
-            lineString = file_object.readline()
-            continue
-        elif lineString[0]=='u':
-            lineString = file_object.readline()
-            continue
-        else:
-            #Split the string into a list of data items
-            lineData = lineString.split()
-
-            #Extract items in list into variables
-            record_id = lineData[0]
-            obs_date = lineData[2]
-            obs_lc = lineData[4]
-            obs_lat = lineData[6]
-            obs_lon = lineData[7]
-
-            #Move to next line
-            lineString=file_object.readline()
+line_list = file_object.readlines()
 
 #Close the file
 file_object.close()
+
+#Pretend we read one line of data from the file
+lineString = line_list[101]
+
+#Split the string into a list of data items
+lineData = lineString.split()
+
+#Extract items in list into variables
+record_id = lineData[0]
+obs_date = lineData[2]
+obs_lc = lineData[4]
+obs_lat = lineData[6]
+obs_lon = lineData[7]
 
 #Print the location of sara
 print(f"Record {record_id} indicates Sara was seen at lat:{obs_lat},lon:{obs_lon} on {obs_date}")
