@@ -16,16 +16,20 @@ filename = './Data/Raw/Sara.txt'
 file_object = open(filename,'r')
 
 #Read contents of file into a list
-lineString = file_object.readline()
+line_list = file_object.readlines()
+
+#Close the file
+file_object.close()
+
+#Creating two new dictionaries to store locations and date
+date_dict={}
+location_dict={}
 
 #Iterate through lines
-while lineString:
-    #Pretend we read all lines of data from the file using a for loop
+for lineString in line_list:    #Pretend we read all lines of data from the file using a for loop
         if lineString[0]=='#':
-            lineString = file_object.readline()
             continue
         elif lineString[0]=='u':
-            lineString = file_object.readline()
             continue
         else:
             #Split the string into a list of data items
@@ -37,15 +41,17 @@ while lineString:
             obs_lc = lineData[4]
             obs_lat = lineData[6]
             obs_lon = lineData[7]
-
-            #Move to next line
-            lineString=file_object.readline()
-
-#Close the file
-file_object.close()
+            
+            if obs_lc in ("1","2","3"):
+                #Adding items to dictionaries
+                date_dict[record_id]= obs_date
+                location_dict[record_id]= (obs_lat, obs_lon) 
 
 #Print the location of sara
 print(f"Record {record_id} indicates Sara was seen at lat:{obs_lat},lon:{obs_lon} on {obs_date}")
+#print(date_dict)
+#print(location_dict)
+
 
 """To use formatted string literals, begin a string with f or F before the opening quotation mark or triple quotation mark in a print() statement. 
 Inside this string, you can write a Python expression between { } characters that can refer to variables or literal values. 
